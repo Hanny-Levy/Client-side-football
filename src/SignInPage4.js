@@ -5,33 +5,19 @@ const SignInPage4 = () => {
     const [username,setUsername]=useState('');
     const [password,setPassword]=useState('');
     const [signIn,setSignIn]=useState(false);
+    let validLogin=false;
 
-    let validLogin = password.length >= 6 && username.includes('@')
+    useEffect(()=>{
+         validLogin = password.length >= 6 && username.includes('@')
+    },[username,password])
 
 
     const  onSignInClick = () =>{
           validLogin ? setSignIn(true) : setSignIn(false);
-          printHello();
-
-
     }
-    const printHello=()=>{
-         return(
-
-                 {signIn} &&
-             <div>
-                 hello {username}
-             </div>
-
-            )
-
-
-    }
-
-
 
     return (
-        <div>
+        <div >
             <table>
                 <tr>
                     <td>
@@ -40,7 +26,7 @@ const SignInPage4 = () => {
                 </tr>
                 <tr>
                     <td>
-                        <input placeholder={"Enter your password"} value={password} onChange={(event) => setPassword(event.target.value)}/>
+                        <input placeholder={"Enter your password"} value={password} type={"password"} onChange={(event) => setPassword(event.target.value)}/>
                     </td>
                 </tr>
                 <tr>
@@ -50,7 +36,12 @@ const SignInPage4 = () => {
                 </tr>
             </table>
 
-
+            {
+                signIn &&
+            <div>
+                hello {username}
+            </div>
+            }
 
 
 
