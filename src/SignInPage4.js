@@ -11,12 +11,23 @@ const SignInPage4 = () => {
     const [selectedTeam2, setSelectedTeam2] = useState("");
     const [signIn,setSignIn]=useState(false);
     const [live,setIsLive]=useState(false);
+    const tableHeaders = ["Name" , "Goals For" , "Goals Against" , "Live"];
+    const [count1 , setCount1]=useState(0)
+    const [count2 , setCount2]=useState(0)
+    const [count3 , setCount3]=useState(0)
+    const [count4 , setCount4]=useState(0)
+
 
     let validPassword = password.length >= 6 ;
     let validUsername = username.includes('@') ;
     let validLogin = validUsername && validPassword;
     const [teams,setTeams]=useState([]);
 
+    useEffect(() => {
+        return () => {
+            alert("you are going to leave page!")
+        }
+    }, [])
 
     useEffect(()=>{
     },[username,password])
@@ -109,27 +120,46 @@ const SignInPage4 = () => {
                                 teams.map(team =>{
                                     let isDisable = team.name==selectedTeam1
                                     return (
-                              <option value={team.name} disabled = {isDisable}>{team.name} </option>)
+                              <option value={team.name} disabled={isDisable}>{team.name} </option>)
                                 })
                             }
                         </select>
                         <button onClick={onSaveButton}>save</button>
                         {
                             live &&
-                            <table>
 
-                           <table/>
+                            <table border={1}>
+                            <tr>
+                                {
+                                    tableHeaders.map(header => {
+                                        return (
+                                            <th>
+                                                {header}
+                                            </th>
+                                        )
+                                    })
+                                }
+                            </tr>
+                                <tr>
+                                    <td>{selectedTeam1}</td>
+                                    <td><input type={"number"} min={"0"} onChange={setCounter1}/></td>
+                                    <td><input type={"number"} min={"0"} onChange={setCounter2}/></td>
+                                    <td>V</td>
+
+                                </tr>
+                                <tr>
+                                    <td>{selectedTeam2}</td>
+                                    <td><input type={"number"}  min={"0"} onChange={setCounter3}/></td>
+                                    <td><input type={"number"}  min={"0"} onChange={setCounter4}/></td>
+                                    <td>V</td>
+                                </tr>
+                           </table>
                         }
                     </table>
+
             }
-
-
-
-
-
-
         </div>
     );
 };
 
-export default SignInPage4;
+export default SignInPage4 ;

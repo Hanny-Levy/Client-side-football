@@ -12,9 +12,6 @@ class App extends Component {
         games : []
     }
 
-    componentDidMount() {
-
-    }
 
     render() {
         return (
