@@ -12,10 +12,10 @@ const SignInPage4 = () => {
     const [signIn,setSignIn]=useState(false);
     const [live,setIsLive]=useState(false);
     const tableHeaders = ["Name" , "Goals For" , "Goals Against" , "Live"];
-    const [count1 , setCount1]=useState(0)
-    const [count2 , setCount2]=useState(0)
-    const [count3 , setCount3]=useState(0)
-    const [count4 , setCount4]=useState(0)
+    const [team1GoalsFor , setTeam1GoalsFor]=useState(0)
+    const [team1GoalsAgainst , setTeam1GoalsAgainst]=useState(0)
+    const [team2GoalsAgainst , setTeam2GoalsAgainst]=useState(0)
+    const [team2GoalsFor , setTeam2GoalsFor]=useState(0)
 
 
     let validPassword = password.length >= 6 ;
@@ -25,7 +25,6 @@ const SignInPage4 = () => {
 
     useEffect(() => {
         return () => {
-            alert("you are going to leave page!")
         }
     }, [])
 
@@ -96,8 +95,9 @@ const SignInPage4 = () => {
                         </td>
                     </tr>
                 </table> :
-                    <table >
-                        hello {username} <br/>
+                    <table>
+                      <h1> hello {username} </h1> <br/>
+                      <h1> Please choose 2 teams: </h1><br/>
                         {/*<button onClick={onLogOutClick}>Log Out</button>*/}
                         <select  id ="teams"  value={selectedTeam1} onChange={team1}>
                             <option disabled={true} value={""}  >
@@ -125,9 +125,10 @@ const SignInPage4 = () => {
                             }
                         </select>
                         <button onClick={onSaveButton}>save</button>
+
                         {
                             live &&
-
+                            <div>
                             <table border={1}>
                             <tr>
                                 {
@@ -142,18 +143,19 @@ const SignInPage4 = () => {
                             </tr>
                                 <tr>
                                     <td>{selectedTeam1}</td>
-                                    <td><input type={"number"} min={"0"} onChange={setCounter1}/></td>
-                                    <td><input type={"number"} min={"0"} onChange={setCounter2}/></td>
+                                    <td><input type={"number"} min={"0"} onChange={(event) => {setTeam1GoalsFor(event.target.value)}}/></td>
+                                    <td><input type={"number"} min={"0"} onChange={(event) => {setTeam1GoalsAgainst(event.target.value)}}/></td>
                                     <td>V</td>
 
                                 </tr>
                                 <tr>
                                     <td>{selectedTeam2}</td>
-                                    <td><input type={"number"}  min={"0"} onChange={setCounter3}/></td>
-                                    <td><input type={"number"}  min={"0"} onChange={setCounter4}/></td>
+                                    <td><input type={"number"}  min={"0"} onChange={(event) => {setTeam2GoalsFor(event.target.value)}}/></td>
+                                    <td><input type={"number"}  min={"0"} onChange={(event) => {setTeam2GoalsAgainst(event.target.value)}}/></td>
                                     <td>V</td>
                                 </tr>
                            </table>
+                        }
                         }
                     </table>
 
