@@ -6,7 +6,7 @@ const LiveResultPage1 = (props) => {
 
 
     useEffect(()=>{
-        axios.get("http://localhost:8999/getLiveResult").then((res)=>{
+        axios.get("http://localhost:8989/getLiveResult").then((res)=>{
             setTeamsLiveGames(res.data)
             }
         )

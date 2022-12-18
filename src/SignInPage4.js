@@ -30,7 +30,7 @@ const SignInPage4 = () => {
     }, [])
 
     useEffect(()=>{
-        axios.post("http://localhost:8999/updateGameResult",{
+        axios.post("http://localhost:8989/updateGameResult",{
             params:{
                 team1: {selectedTeam1},
                 team2: {selectedTeam2},
@@ -45,7 +45,7 @@ const SignInPage4 = () => {
 
 
     useEffect(()=>{
-        axios.get("http://localhost:8999/getAllTeams").then(res =>{
+        axios.get("http://localhost:8989/getAllTeams").then(res =>{
             setTeams(res.data)
             })
         },[])
@@ -54,7 +54,7 @@ const SignInPage4 = () => {
     const  onSignInClick = () =>{
         validLogin?setSignIn(true):setSignIn(false);
         if (validLogin)
-        axios.get("http://localhost:8999/sign-in",{
+        axios.get("http://localhost:8989/sign-in",{
             params:{
                 username: {username},
                 password: {password}
@@ -100,7 +100,7 @@ const SignInPage4 = () => {
 
 
     const endGameButton=()=> {
-        axios.post("http://localhost:8999/updateLeagueTeam",
+        axios.post("http://localhost:8989/updateLeagueTeam",
             {
                 params: {
                     team1:selectedTeam1,
