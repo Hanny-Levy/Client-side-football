@@ -1,6 +1,7 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import LiveResultPage1 from "./LiveResultPage1";
 
 const SignInPage4 = () => {
     const [username,setUsername]=useState("");
@@ -39,6 +40,7 @@ const SignInPage4 = () => {
 
 
     const  onSignInClick = () =>{
+        validLogin?setSignIn(true):setSignIn(false);
         if (validLogin)
         axios.get("http://localhost:8989/sign-in",{
             params:{
@@ -79,6 +81,10 @@ const SignInPage4 = () => {
 
     const onSaveButton = () =>{
         setIsLive(true);
+        return(
+
+        <LiveResultPage1 team1={selectedTeam1} team2={selectedTeam2} colorTeam1={team1GoalsFor>team2GoalsFor ? "green" : "red"}/>
+            );
     }
 
 
