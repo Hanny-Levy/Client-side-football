@@ -46,7 +46,6 @@ const SignInPage4 = () => {
                 password: {password}
             }
         }).then((res=>{
-            debugger;
             if (res.data.errorCode==null){
                 setSignIn(true);
             alert("sign in successful!")
@@ -201,7 +200,6 @@ const SignInPage4 = () => {
                         }
                         }
                     </table>
-
 
             }
 
