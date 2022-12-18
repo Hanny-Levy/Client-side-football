@@ -11,8 +11,8 @@ const SignInPage4 = () => {
     const [signIn,setSignIn]=useState(false);
     const [live,setIsLive]=useState(false);
     const tableHeaders = ["Name" , "Goals For" , "Goals Against" , "Live"];
-    const [team1GoalsFor , setTeam1GoalsFor]=useState(0)
-    const [team1GoalsAgainst , setTeam1GoalsAgainst]=useState(0)
+    const [team1GoalsFor, , setTeam1GoalsFor]=useState(0)
+    const [team1GoalsAgainst, , setTeam1GoalsAgainst]=useState(0)
     const [team2GoalsAgainst , setTeam2GoalsAgainst]=useState(0)
     const [team2GoalsFor , setTeam2GoalsFor]=useState(0)
 
