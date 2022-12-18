@@ -1,8 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {DropDownListComponent} from '@syncfusion/ej2-react-dropdowns';
-
 
 const SignInPage4 = () => {
     const [username,setUsername]=useState("");
@@ -39,8 +37,30 @@ const SignInPage4 = () => {
 
 
     const  onSignInClick = () =>{
-        validLogin ? setSignIn(true) : setSignIn(false);
-    }
+        if (validLogin)
+        axios.get("http://localhost:8989/sign-in",{
+            params:{
+                username: {username},
+                password: {password}
+            }
+        }).then((res=>{
+            debugger;
+            if (res.data.errorCode==null){
+                setSignIn(true);
+            alert("sign in successful!")
+            }else {
+                return(
+                    <div>
+                        {res.data.errorCode}
+                    </div>
+                )
+
+            }
+
+        }));
+
+
+}
 
     const  onLogOutClick = () =>{
         setSignIn(false);
@@ -60,7 +80,25 @@ const SignInPage4 = () => {
         setIsLive(true);
     }
 
-    return (
+
+    const endGameButton=()=> {
+        axios.post("http://localhost:8989/updateLeagueTeam",
+            {
+                params: {
+                    team1:selectedTeam1,
+                    team2:selectedTeam2,
+                    goalsForTeam1:team1GoalsFor,
+                    goalsAgainstTeam1:team1GoalsAgainst,
+                    goalsForTeam2:team2GoalsFor,
+                    goalsAgainstTeam2:team2GoalsAgainst,
+                }
+
+            }).then((res) =>{
+                alert("update successful")
+        });
+    }
+
+        return (
         <div >
             {
                 !signIn ? <table>
@@ -154,12 +192,17 @@ const SignInPage4 = () => {
                                     <td><input type={"number"}  min={"0"} onChange={(event) => {setTeam2GoalsAgainst(event.target.value)}}/></td>
                                     <td>V</td>
                                 </tr>
+
                            </table>
+                            <button onClick={endGameButton}> End game </button>
+                            </div>
                         }
                         }
                     </table>
 
+
             }
+
         </div>
     );
 };
