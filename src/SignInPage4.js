@@ -30,10 +30,22 @@ const SignInPage4 = () => {
     }, [])
 
     useEffect(()=>{
-    },[username,password])
+        axios.post("http://localhost:8999/updateGameResult",{
+            params:{
+                team1: {selectedTeam1},
+                team2: {selectedTeam2},
+                goalsForTeam1: {team1GoalsFor},
+                goalsAgainstTeam1: {team1GoalsAgainst},
+                goalsForTeam2: {team2GoalsFor},
+                goalsAgainstTeam2: {team2GoalsAgainst},
+            }
+        });
+    },[team1GoalsFor, team1GoalsAgainst,team2GoalsAgainst,team2GoalsFor ])
+
+
 
     useEffect(()=>{
-        axios.get("http://localhost:8989/getAllTeams").then(res =>{
+        axios.get("http://localhost:8999/getAllTeams").then(res =>{
             setTeams(res.data)
             })
         },[])
@@ -42,7 +54,7 @@ const SignInPage4 = () => {
     const  onSignInClick = () =>{
         validLogin?setSignIn(true):setSignIn(false);
         if (validLogin)
-        axios.get("http://localhost:8989/sign-in",{
+        axios.get("http://localhost:8999/sign-in",{
             params:{
                 username: {username},
                 password: {password}
@@ -81,15 +93,14 @@ const SignInPage4 = () => {
 
     const onSaveButton = () =>{
         setIsLive(true);
-        return(
-
-        <LiveResultPage1 team1={selectedTeam1} team2={selectedTeam2} colorTeam1={team1GoalsFor>team2GoalsFor ? "green" : "red"}/>
-            );
+        // return(
+        //  <LiveResultPage1 team1={selectedTeam1} team2={selectedTeam2} />
+        //     );
     }
 
 
     const endGameButton=()=> {
-        axios.post("http://localhost:8989/updateLeagueTeam",
+        axios.post("http://localhost:8999/updateLeagueTeam",
             {
                 params: {
                     team1:selectedTeam1,
