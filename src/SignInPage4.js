@@ -1,7 +1,8 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
-import LiveResultPage1 from "./LiveResultPage1";
+import Response from "./Response";
+
 
 const SignInPage4 = () => {
     const [username,setUsername]=useState("");
@@ -15,6 +16,7 @@ const SignInPage4 = () => {
     const [team1GoalsAgainst, , setTeam1GoalsAgainst]=useState(0)
     const [team2GoalsAgainst , setTeam2GoalsAgainst]=useState(0)
     const [team2GoalsFor , setTeam2GoalsFor]=useState(0)
+    const [responseByCodeError,setResponseByCodeError]=useState(0);
 
 
     let validPassword = password.length >= 6 ;
@@ -52,23 +54,20 @@ const SignInPage4 = () => {
 
 
     const  onSignInClick = () =>{
-        validLogin?setSignIn(true):setSignIn(false);
+       // validLogin?setSignIn(true):setSignIn(false);
         if (validLogin)
         axios.get("http://localhost:8989/sign-in",{
             params:{
-                username: {username},
-                password: {password}
+                username: username,
+                password: password
             }
         }).then((res=>{
             if (res.data.errorCode==null){
                 setSignIn(true);
-            alert("sign in successful!")
+            //alert("sign in successful!")
             }else {
-                return(
-                    <div>
-                        {res.data.errorCode}
-                    </div>
-                )
+                alert(res.data.errorCode);
+                setResponseByCodeError(res.data.errorCode);
 
             }
 
@@ -149,7 +148,15 @@ const SignInPage4 = () => {
                         <td>
                             <button onClick={onSignInClick} disabled={!validUsername || !validPassword}  >Sign In</button>
                         </td>
+
+
                     </tr>
+                     <tr>
+                         {(username.length!==0 && password.length!==0 && responseByCodeError!==0) &&
+                         <Response errorCode={responseByCodeError}/>
+                         }
+                     </tr>
+
                 </table> :
                     <table>
                       <h1> hello {username} </h1> <br/>
@@ -215,7 +222,8 @@ const SignInPage4 = () => {
                             <button onClick={endGameButton}> End game </button>
                             </div>
                         }
-                        }
+
+
                     </table>
 
             }

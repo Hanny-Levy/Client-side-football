@@ -206,4 +206,9 @@ button{
 h1 {
   color: aliceblue;
 }
+.divErrorCode{
+  font-weight: bold;
+  font-size: 20px;
+  color: red;
+}
 
