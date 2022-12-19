@@ -12,8 +12,8 @@ const SignInPage4 = () => {
     const [signIn,setSignIn]=useState(false);
     const [live,setIsLive]=useState(false);
     const tableHeaders = ["Name" , "Goals For" , "Goals Against" , "Live"];
-    const [team1GoalsFor, , setTeam1GoalsFor]=useState(0)
-    const [team1GoalsAgainst, , setTeam1GoalsAgainst]=useState(0)
+    const [team1GoalsFor, setTeam1GoalsFor]=useState(0)
+    const [team1GoalsAgainst , setTeam1GoalsAgainst]=useState(0)
     const [team2GoalsAgainst , setTeam2GoalsAgainst]=useState(0)
     const [team2GoalsFor , setTeam2GoalsFor]=useState(0)
     const [responseByCodeError,setResponseByCodeError]=useState(0);
@@ -31,18 +31,19 @@ const SignInPage4 = () => {
         }
     }, [])
 
-    useEffect(()=>{
-        axios.post("http://localhost:8989/updateGameResult",{
-            params:{
-                team1: {selectedTeam1},
-                team2: {selectedTeam2},
-                goalsForTeam1: {team1GoalsFor},
-                goalsAgainstTeam1: {team1GoalsAgainst},
-                goalsForTeam2: {team2GoalsFor},
-                goalsAgainstTeam2: {team2GoalsAgainst},
-            }
-        });
-    },[team1GoalsFor, team1GoalsAgainst,team2GoalsAgainst,team2GoalsFor ])
+    // useEffect(()=>{
+    //     axios.post("http://localhost:8989/updateGameResult",{
+    //         params:{
+    //             team1: {selectedTeam1},
+    //             team2: {selectedTeam2},
+    //             goalsForTeam1: {team1GoalsFor},
+    //             goalsAgainstTeam1: {team1GoalsAgainst},
+    //             goalsForTeam2: {team2GoalsFor},
+    //             goalsAgainstTeam2: {team2GoalsAgainst},
+    //         }
+    //     });
+    // },[team1GoalsFor, team1GoalsAgainst,team2GoalsAgainst,team2GoalsFor ])
+
 
 
 
@@ -75,6 +76,30 @@ const SignInPage4 = () => {
 
 
 }
+    const endGameButton=()=> {
+        axios.get("http://localhost:8989/update-final-game", {
+                params :{
+                    team1:selectedTeam1,
+                    team2: selectedTeam2,
+                    team1GoalsFor: team1GoalsFor,
+                    team1Against: team1GoalsAgainst,
+                    team2GoalsFor: team2GoalsFor,
+                    team2Against: team2GoalsAgainst,
+                }
+        }).then((res) =>{
+            if ( res.data===true)
+                alert("update successful")
+            alert(selectedTeam1)
+            alert(selectedTeam2)
+            alert(team1GoalsFor)
+            alert(team1GoalsAgainst)
+            alert(team2GoalsFor)
+            alert(team2GoalsAgainst)
+            setIsLive(false);
+
+        });
+
+    }
 
     const  onLogOutClick = () =>{
         setSignIn(false);
@@ -95,24 +120,6 @@ const SignInPage4 = () => {
         // return(
         //  <LiveResultPage1 team1={selectedTeam1} team2={selectedTeam2} />
         //     );
-    }
-
-
-    const endGameButton=()=> {
-        axios.post("http://localhost:8989/updateLeagueTeam",
-            {
-                params: {
-                    team1:selectedTeam1,
-                    team2:selectedTeam2,
-                    goalsForTeam1:team1GoalsFor,
-                    goalsAgainstTeam1:team1GoalsAgainst,
-                    goalsForTeam2:team2GoalsFor,
-                    goalsAgainstTeam2:team2GoalsAgainst,
-                }
-
-            }).then((res) =>{
-                alert("update successful")
-        });
     }
 
         return (
