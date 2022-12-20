@@ -2,6 +2,7 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Response from "./Response";
+import LiveResultPage1 from "./LiveResultPage1";
 
 
 const SignInPage4 = () => {
@@ -53,9 +54,22 @@ const SignInPage4 = () => {
             })
         },[])
 
+    useEffect(()=>{
+        if (live)
+        axios.post("http://localhost:8989/update-live-game",null, {
+            params: {
+                team1 : selectedTeam1 ,
+                team2 : selectedTeam2 ,
+                team1GoalsFor : team1GoalsFor ,
+                team2GoalsFor : team2GoalsFor
+            }
+        })
+            .then(res =>{
+            alert("send to server")
+        })
+    },[team1GoalsFor,team2GoalsFor])
 
     const  onSignInClick = () =>{
-       // validLogin?setSignIn(true):setSignIn(false);
         if (validLogin)
         axios.get("http://localhost:8989/sign-in",{
             params:{
@@ -65,7 +79,6 @@ const SignInPage4 = () => {
         }).then((res=>{
             if (res.data.errorCode==null){
                 setSignIn(true);
-            //alert("sign in successful!")
             }else {
                 alert(res.data.errorCode);
                 setResponseByCodeError(res.data.errorCode);
@@ -77,27 +90,29 @@ const SignInPage4 = () => {
 
 }
     const endGameButton=()=> {
-        axios.get("http://localhost:8989/update-final-game", {
+        axios.post("http://localhost:8989/update-final-game",null, {
                 params :{
                     team1:selectedTeam1,
                     team2: selectedTeam2,
                     team1GoalsFor: team1GoalsFor,
-                    team1Against: team1GoalsAgainst,
                     team2GoalsFor: team2GoalsFor,
-                    team2Against: team2GoalsAgainst,
                 }
         }).then((res) =>{
             if ( res.data===true)
                 alert("update successful")
-            alert(selectedTeam1)
-            alert(selectedTeam2)
-            alert(team1GoalsFor)
-            alert(team1GoalsAgainst)
-            alert(team2GoalsFor)
-            alert(team2GoalsAgainst)
-            setIsLive(false);
-
+            clear();
         });
+
+    }
+
+    const clear = () =>{
+        setSelectedTeam1("");
+        setSelectedTeam2("");
+        setTeam2GoalsAgainst(0);
+        setTeam1GoalsAgainst(0);
+        setTeam1GoalsFor(0);
+        setTeam2GoalsFor(0);
+        setIsLive(false);
 
     }
 
@@ -114,23 +129,21 @@ const SignInPage4 = () => {
     const team2 = (event) => {
         setSelectedTeam2(event.target.value)
     }
-
     const onSaveButton = () =>{
         setIsLive(true);
-        // return(
-        //  <LiveResultPage1 team1={selectedTeam1} team2={selectedTeam2} />
-        //     );
     }
 
         return (
         <div >
+            <br/><br/><br/><br/>
+
             {
                 !signIn ? <table>
                     <tr>
-                        <td>
+                        <th>
                             <input placeholder={"Enter your username"} value={username} onChange={(event) => {
                                 setUsername(event.target.value)}}/>
-                        </td>
+                        </th>
                     </tr>
                             <tr>
                             {
@@ -140,10 +153,10 @@ const SignInPage4 = () => {
                             </tr>
 
                     <tr>
-                        <td>
+                        <th>
                             <input placeholder={"Enter your password"} value={password} type={"password"} onChange={(event) => setPassword(event.target.value)}/>
 
-                        </td>
+                        </th>
                     </tr>
                         <tr>
                             {
@@ -152,9 +165,9 @@ const SignInPage4 = () => {
                             }
                         </tr>
                     <tr>
-                        <td>
+                        <th>
                             <button onClick={onSignInClick} disabled={!validUsername || !validPassword}  >Sign In</button>
-                        </td>
+                        </th>
 
 
                     </tr>
@@ -177,7 +190,7 @@ const SignInPage4 = () => {
                             teams.map(team =>{
                                 let isDisable = team.name==selectedTeam2
                                 return (
-                                    <option value={team.name} disabled={isDisable}>{team.name}</option>
+                                    <option value={team.name} disabled={isDisable||live}>{team.name}</option>
                                 )
                             })
                         }
@@ -190,11 +203,11 @@ const SignInPage4 = () => {
                                 teams.map(team =>{
                                     let isDisable = team.name==selectedTeam1
                                     return (
-                              <option value={team.name} disabled={isDisable}>{team.name} </option>)
+                              <option value={team.name} disabled={isDisable||live}>{team.name} </option>)
                                 })
                             }
                         </select>
-                        <button onClick={onSaveButton}>save</button>
+                        <button onClick={onSaveButton} disabled={live}>save</button>
 
                         {
                             live &&
@@ -213,20 +226,29 @@ const SignInPage4 = () => {
                             </tr>
                                 <tr>
                                     <td>{selectedTeam1}</td>
-                                    <td><input type={"number"} min={"0"} onChange={(event) => {setTeam1GoalsFor(event.target.value)}}/></td>
-                                    <td><input type={"number"} min={"0"} onChange={(event) => {setTeam1GoalsAgainst(event.target.value)}}/></td>
+                                    <td><input type={"number"} min={"0"} onChange={(event) => {
+                                        setTeam1GoalsFor(event.target.value);
+                                        setTeam2GoalsAgainst(event.target.value)}} value={team1GoalsFor}/></td>
+                                    <td>{team1GoalsAgainst}</td>
                                     <td>V</td>
 
                                 </tr>
                                 <tr>
                                     <td>{selectedTeam2}</td>
-                                    <td><input type={"number"}  min={"0"} onChange={(event) => {setTeam2GoalsFor(event.target.value)}}/></td>
-                                    <td><input type={"number"}  min={"0"} onChange={(event) => {setTeam2GoalsAgainst(event.target.value)}}/></td>
+                                    <td><input type={"number"}  min={"0"} onChange={(event) => {
+                                        setTeam2GoalsFor(event.target.value);
+                                        setTeam1GoalsAgainst(event.target.value)
+                                    }} value={team2GoalsFor}/></td>
+                                    <td>{team2GoalsAgainst}</td>
                                     <td>V</td>
                                 </tr>
 
+                                <tr>
+                                  <td><button onClick={endGameButton}> End game </button></td>
+                                   <td><button onClick={clear}> Clear </button></td>
+                                </tr>
                            </table>
-                            <button onClick={endGameButton}> End game </button>
+                                <LiveResultPage1 changeInGame={live} />
                             </div>
                         }
 
