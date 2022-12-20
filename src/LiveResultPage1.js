@@ -1,46 +1,45 @@
 import React, {useEffect,useState} from 'react';
 import axios from "axios";
+import './Table.css';
 
-const LiveResultPage1 = () => {
+const LiveResultPage1 = (props) => {
     const [liveGames,setLiveGames]=useState([]);
-    const [teamName,setTeamName] = useState("");
-
+    const [changeInGame,setChangeInGame ]=useState(false);
 
     useEffect(()=>{
         axios.get("http://localhost:8989/get-all-live-games").then((res)=>{
             setLiveGames(res.data)
             });
 
-    } , [ ]);
+    } , [changeInGame]);
 
+        useEffect(() => {
+            const interval =setInterval(gameHasChanged,50);
+            return () => clearInterval(interval);
+        },[])
+
+        const gameHasChanged= () =>{
+            setChangeInGame(props.changeInGame)
+        }
 
 
     const checkWinner = (goalsTeam1,goalsTeam2) => {
-        let color;
+        let color="white";
         if (goalsTeam1===goalsTeam2){
             color="yellow";
         }else if (goalsTeam1>goalsTeam2){
-            color="red";
+            color="green";
         }else {
-            color="green"
+            color="red"
         }
         return color ;
     }
 
-    const getTeamName = (id) =>{
-        axios.get("http://localhost:8989/team-name-by-id", {
-            params: {
-                id : id
-            }
-        })
-            .then((res)=>{
-              setTeamName(res.data);
-        });
-    }
     return (
-        <div >
 
-            <table border={1} color={"white"}>
+        <div className="table-wrapper">
+
+            <table class="fl-table">
                 <tr>
                     <th>
                        Name
@@ -53,25 +52,24 @@ const LiveResultPage1 = () => {
                     liveGames.map((game)=>{
                         const team1Goals = game.team1GoalsFor-game.team1Against ;
                         const team2Goals = game.team2GoalsFor-game.team2Against ;
-                        const teamName1=getTeamName(game.team1);
-                        const teamName2=getTeamName(game.team2);
 
                         return(
 
                                 <tr>
-                                    <td style={{color : checkWinner(team1Goals,team2Goals)}} >
-                                        {teamName1}
-
+                                    <td style={{background : checkWinner(team1Goals,team2Goals)}} >
+                                        {game.team1}
                                     </td>
-                                    <td style={{color : checkWinner(team2Goals,team1Goals)}}>
-                                        {teamName2}
+                                    <td style={{background : checkWinner(team2Goals,team1Goals)}}>
+                                        {game.team2}
 
                                     </td>
                                 </tr>
 
                             );
+
                         })
                 }
+
             </table>
         </div>
     );
