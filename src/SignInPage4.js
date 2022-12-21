@@ -2,8 +2,6 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Response from "./Response";
-import LiveResultPage1 from "./LiveResultPage1";
-import {Link} from "react-router-dom";
 
 
 const SignInPage4 = () => {
@@ -26,29 +24,6 @@ const SignInPage4 = () => {
     let validLogin = validUsername && validPassword;
     const [teams,setTeams]=useState([]);
 
-
-    useEffect(() => {
-        return () => {
-
-        }
-    }, [])
-
-    // useEffect(()=>{
-    //     axios.post("http://localhost:8989/updateGameResult",{
-    //         params:{
-    //             team1: {selectedTeam1},
-    //             team2: {selectedTeam2},
-    //             goalsForTeam1: {team1GoalsFor},
-    //             goalsAgainstTeam1: {team1GoalsAgainst},
-    //             goalsForTeam2: {team2GoalsFor},
-    //             goalsAgainstTeam2: {team2GoalsAgainst},
-    //         }
-    //     });
-    // },[team1GoalsFor, team1GoalsAgainst,team2GoalsAgainst,team2GoalsFor ])
-
-
-
-
     useEffect(()=>{
         axios.get("http://localhost:8989/getAllTeams").then(res =>{
             setTeams(res.data)
@@ -66,14 +41,10 @@ const SignInPage4 = () => {
             }
         })
             .then(res =>{
-            alert("send to server")
         })
     },[team1GoalsFor,team2GoalsFor])
 
-   //  useEffect(() => {
-   //       <LiveResultPage1 changeInGame={live} />
-   //      }
-   // ,[live,team1GoalsFor,team2GoalsFor] )
+
     const  onSignInClick = () =>{
         if (validLogin)
         axios.get("http://localhost:8989/sign-in",{
@@ -105,12 +76,27 @@ const SignInPage4 = () => {
         }).then((res) =>{
             if ( res.data===true)
             alert("update successful")
-            clear();
+            initGame();
         });
 
     }
 
     const clear = () =>{
+        axios.post("http://localhost:8989/delete-live-game",null, {
+            params :{
+                team1:selectedTeam1,
+                team2: selectedTeam2,
+                team1GoalsFor: team1GoalsFor,
+                team2GoalsFor: team2GoalsFor,
+            }
+        }).then((res) =>{
+            if ( res.data===true)
+                alert("delete successful")
+        });
+        initGame();
+    }
+
+    const initGame =()=>{
         setSelectedTeam1("");
         setSelectedTeam2("");
         setTeam2GoalsAgainst(0);
@@ -118,7 +104,6 @@ const SignInPage4 = () => {
         setTeam1GoalsFor(0);
         setTeam2GoalsFor(0);
         setIsLive(false);
-
     }
 
     const  onLogOutClick = () =>{

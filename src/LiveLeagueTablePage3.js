@@ -1,29 +1,45 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
+import axios from "axios";
+import './Table.css';
 
 const LiveLeagueTablePage3 = () => {
+
+
+    const [allTeams, setAllTeams] = useState([]);
+
+
+    useEffect((e) => {
+        axios.get("http://localhost:8989/getAllTeams").then((res) => {
+            setAllTeams(res.data)
+            e.preventDefault();
+
+        })
+    });
+
+
+
     return (
-        <div >
-            <table border={1}>
+        <div className="table-wrapper">
+
+            <table className="fl-table">
                 <tr>
                     <td >
-                        position
+                        Position
                     </td>
                     <td>
-                        team name
+                        Team name
                     </td>
                     <td>
-                        points
+                        Points
                     </td>
                     <td >
-                        goalsFor
+                        GoalsFor
                     </td>
                     <td >
-                        goalAgainst
+                        GoalAgainst
                     </td>
                 </tr>
             </table>
-            }
-
 
         </div>
     );

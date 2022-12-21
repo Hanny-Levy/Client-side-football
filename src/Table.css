@@ -20,9 +20,9 @@ h2{
 
 .table-wrapper{
     margin: 10px 70px 70px;
-    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
 
 }
+
 
 .fl-table {
     margin: 150px;
@@ -31,7 +31,7 @@ h2{
     font-weight: normal;
     border: none;
     border-collapse: collapse;
-    width: 100%;
+    width: 60%;
     max-width: 100%;
     white-space: nowrap;
     background-color: white;
@@ -98,7 +98,7 @@ h2{
         box-sizing: border-box;
         overflow-x: hidden;
         overflow-y: auto;
-        width: 120px;
+        width: 50px;
         font-size: 13px;
         text-overflow: ellipsis;
     }

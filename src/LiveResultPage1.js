@@ -9,18 +9,11 @@ const LiveResultPage1 = (props) => {
     useEffect(()=>{
         axios.get("http://localhost:8989/get-all-live-games").then((res)=>{
             setLiveGames(res.data)
+            // e.preventDefault();
             });
+    } );
 
-    } , [changeInGame]);
 
-        useEffect(() => {
-            const interval =setInterval(gameHasChanged,50);
-            return () => clearInterval(interval);
-        },[])
-
-        const gameHasChanged= () =>{
-            setChangeInGame(props.changeInGame)
-        }
 
 
     const checkWinner = (goalsTeam1,goalsTeam2) => {
@@ -42,10 +35,10 @@ const LiveResultPage1 = (props) => {
             <table class="fl-table">
                 <tr>
                     <th>
-                       Name
+                       Team Name 1
                     </th>
                     <th>
-                        Name
+                        Team Name 2
                     </th>
                 </tr>
                 {
@@ -64,12 +57,9 @@ const LiveResultPage1 = (props) => {
 
                                     </td>
                                 </tr>
-
                             );
-
                         })
                 }
-
             </table>
         </div>
     );
