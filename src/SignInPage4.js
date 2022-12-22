@@ -17,6 +17,8 @@ const SignInPage4 = () => {
     const [team2GoalsAgainst , setTeam2GoalsAgainst]=useState(0)
     const [team2GoalsFor , setTeam2GoalsFor]=useState(0)
     const [responseByCodeError,setResponseByCodeError]=useState(0);
+    const [teamsInLive,setTeamsInLive]=useState([]);
+
 
 
     let validPassword = password.length >= 6 ;
@@ -44,6 +46,32 @@ const SignInPage4 = () => {
         })
     },[team1GoalsFor,team2GoalsFor])
 
+    useEffect(()=>{
+            axios.get("http://localhost:8989/get-all-live-games").then(res =>{
+               setTeamsPlaying(res.data);});
+    });
+
+    const setTeamsPlaying=(liveGamesArray)=>{
+        const list=[];
+        liveGamesArray.map((game)=>{
+            list.push(game.team1);
+            list.push(game.team2);
+        })
+
+       setTeamsInLive(list);
+    }
+
+
+    let isTeamPlaying=(team)=>{
+        let live=false;
+        teamsInLive.map((currentTeam)=>{
+            if (currentTeam!==team){
+                live=true;
+            }
+            return live;
+            }
+        )
+    }
 
     const  onSignInClick = () =>{
         if (validLogin)
@@ -58,13 +86,10 @@ const SignInPage4 = () => {
             }else {
                 alert(res.data.errorCode);
                 setResponseByCodeError(res.data.errorCode);
-
             }
-
         }));
-
-
 }
+
     const endGameButton=()=> {
         axios.post("http://localhost:8989/update-final-game",null, {
                 params :{
@@ -78,7 +103,6 @@ const SignInPage4 = () => {
             alert("update successful")
             initGame();
         });
-
     }
 
     const clear = () =>{
@@ -178,9 +202,9 @@ const SignInPage4 = () => {
                             </option>
                         {
                             teams.map(team =>{
-                                let isDisable = team.name===selectedTeam2
+                                let isDisable = team.name===selectedTeam2 && isTeamPlaying(team.name)
                                 return (
-                                    <option value={team.name} disabled={isDisable||live}>{team.name}</option>
+                                    <option value={team.name} disabled={isDisable}>{team.name}</option>
                                 )
                             })
                         }
@@ -191,9 +215,9 @@ const SignInPage4 = () => {
                             </option>
                                 {
                                 teams.map(team =>{
-                                    let isDisable = team.name===selectedTeam1
+                                    let isDisable = team.name===selectedTeam1 && isTeamPlaying(team.name)
                                     return (
-                              <option value={team.name} disabled={isDisable||live}>{team.name} </option>)
+                              <option value={team.name} disabled={isDisable}>{team.name} </option>)
                                 })
                             }
                         </select>
@@ -240,12 +264,8 @@ const SignInPage4 = () => {
                            </table>
                             </div>
                         }
-
-
                     </table>
-
             }
-
         </div>
     );
 };

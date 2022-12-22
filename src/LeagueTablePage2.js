@@ -6,9 +6,6 @@ const LeagueTablePage2 = () => {
 
     const [allTeamsFromServer, setAllTeamsFromServer] = useState([]);
      let [updatedTeamsList, setUpdatedTeamsList] = useState([]);
-    // let updatedTeamsList= [];
-
-
 
     useEffect((e) => {
         axios.get("http://localhost:8989/getAllTeams").then((res) => {
@@ -46,14 +43,8 @@ const LeagueTablePage2 = () => {
                 b.points - a.points
             )
         });
-
         setUpdatedTeamsList(list)
-
-
     }
-
-
-
 
     return (
         <div className="table-wrapper">
