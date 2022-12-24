@@ -11,7 +11,7 @@ const LeagueTablePage2 = () => {
         axios.get("http://localhost:8989/getAllTeams").then((res) => {
             setAllTeamsFromServer(res.data)
             updateList();
-            e.preventDefault();
+           // e.preventDefault();
         })
     });
 
