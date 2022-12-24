@@ -57,10 +57,8 @@ const SignInPage4 = () => {
             list.push(game.team1);
             list.push(game.team2);
         })
-
        setTeamsInLive(list);
     }
-
 
     let isTeamPlaying=(team)=>{
         let live=false;
@@ -202,7 +200,7 @@ const SignInPage4 = () => {
                             </option>
                         {
                             teams.map(team =>{
-                                let isDisable = team.name===selectedTeam2 && isTeamPlaying(team.name)
+                                let isDisable = team.name===selectedTeam2 || isTeamPlaying(team.name)
                                 return (
                                     <option value={team.name} disabled={isDisable}>{team.name}</option>
                                 )

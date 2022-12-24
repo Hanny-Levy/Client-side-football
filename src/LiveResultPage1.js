@@ -6,10 +6,10 @@ const LiveResultPage1 = (props) => {
     const [liveGames,setLiveGames]=useState([]);
     const [changeInGame,setChangeInGame ]=useState(false);
 
-    useEffect(()=>{
+    useEffect((e)=>{
         axios.get("http://localhost:8989/get-all-live-games").then((res)=>{
             setLiveGames(res.data)
-            // e.preventDefault();
+             e.preventDefault();
             });
     } );
 
@@ -38,8 +38,15 @@ const LiveResultPage1 = (props) => {
                        Team Name 1
                     </th>
                     <th>
+                        Goals For
+                    </th>
+                    <th>
+                        Goals For
+                    </th>
+                    <th>
                         Team Name 2
                     </th>
+
                 </tr>
                 {
                     liveGames.map((game)=>{
@@ -50,13 +57,16 @@ const LiveResultPage1 = (props) => {
 
                                 <tr>
                                     <td style={{background : checkWinner(team1Goals,team2Goals)}} >
-                                        {game.team1}
+                                        {game.team1.name}
                                     </td>
+                                    <td style={{background : checkWinner(team1Goals,team2Goals)}} >
+                                    {game.team1GoalsFor}</td>
                                     <td style={{background : checkWinner(team2Goals,team1Goals)}}>
-                                        {game.team2}
-
+                                        {game.team2GoalsFor}</td>
+                                    <td style={{background : checkWinner(team2Goals,team1Goals)}}>
+                                        {game.team2.name}
                                     </td>
-                                </tr>
+                                    </tr>
                             );
                         })
                 }
