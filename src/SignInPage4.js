@@ -46,30 +46,30 @@ const SignInPage4 = () => {
         })
     },[team1GoalsFor,team2GoalsFor])
 
-    useEffect(()=>{
-            axios.get("http://localhost:8989/get-all-live-games").then(res =>{
-               setTeamsPlaying(res.data);});
-    });
+    // useEffect(()=>{
+    //         axios.get("http://localhost:8989/get-all-live-games").then(res =>{
+    //            setTeamsPlaying(res.data);});
+    // });
 
-    const setTeamsPlaying=(liveGamesArray)=>{
-        const list=[];
-        liveGamesArray.map((game)=>{
-            list.push(game.team1);
-            list.push(game.team2);
-        })
-       setTeamsInLive(list);
-    }
+    // const setTeamsPlaying=(liveGamesArray)=>{
+    //     const list=[];
+    //     liveGamesArray.map((game)=>{
+    //         list.push(game.team1);
+    //         list.push(game.team2);
+    //     })
+    //    setTeamsInLive(list);
+    // }
 
-    let isTeamPlaying=(team)=>{
-        let live=false;
-        teamsInLive.map((currentTeam)=>{
-            if (currentTeam!==team){
-                live=true;
-            }
-            return live;
-            }
-        )
-    }
+    // let isTeamPlaying=(team)=>{
+    //     let live=false;
+    //     teamsInLive.map((currentTeam)=>{
+    //         if (currentTeam!==team){
+    //             live=true;
+    //         }
+    //         return live;
+    //         }
+    //     )
+    // }
 
     const  onSignInClick = () =>{
         if (validLogin)
@@ -126,12 +126,6 @@ const SignInPage4 = () => {
         setTeam1GoalsFor(0);
         setTeam2GoalsFor(0);
         setIsLive(false);
-    }
-
-    const  onLogOutClick = () =>{
-        setSignIn(false);
-        setUsername("");
-        setPassword("");
     }
 
     const team1 = (event) => {
@@ -200,7 +194,7 @@ const SignInPage4 = () => {
                             </option>
                         {
                             teams.map(team =>{
-                                let isDisable = team.name===selectedTeam2 || isTeamPlaying(team.name)
+                                let isDisable = team.name===selectedTeam2
                                 return (
                                     <option value={team.name} disabled={isDisable}>{team.name}</option>
                                 )
@@ -213,7 +207,7 @@ const SignInPage4 = () => {
                             </option>
                                 {
                                 teams.map(team =>{
-                                    let isDisable = team.name===selectedTeam1 && isTeamPlaying(team.name)
+                                    let isDisable = team.name===selectedTeam1
                                     return (
                               <option value={team.name} disabled={isDisable}>{team.name} </option>)
                                 })

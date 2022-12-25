@@ -1,8 +1,46 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Table.css';
 
+
 const GeneralLeagueTable = (props) => {
-    const teamsList = props.list;
+    const [teamsList,setTeamsList]=useState(props.list);
+  // let teamsList = ;
+
+
+
+    // const updateList = () => {
+    //     let list = [];
+    //     teamsList.map((teamFromServer ) => {
+    //         const newTeam = {
+    //             name : teamFromServer.name ,
+    //             played : teamFromServer.gamesWon + teamFromServer.gamesLost + teamFromServer.gameDrawn ,
+    //             won : teamFromServer.gamesWon ,
+    //             drawn: teamFromServer.gameDrawn ,
+    //             lost : teamFromServer.gamesLost ,
+    //             goalsFor : teamFromServer.goalsFor ,
+    //             goalsAgainst : teamFromServer.goalAgainst,
+    //             goalsDrawn : teamFromServer.goalsFor - teamFromServer.goalAgainst,
+    //             points : teamFromServer.gamesWon * 3 + teamFromServer.gameDrawn
+    //         }
+    //         list.push(newTeam);
+    //     })
+    //     list=list.sort();
+    //
+    //     list = list.sort((a,b) => {
+    //         return (
+    //             b.goalsDrawn - a.goalsDrawn
+    //         )
+    //     });
+    //     list = list.sort((a,b) => {
+    //         return (
+    //             b.points - a.points
+    //         )
+    //     });
+    //     setTeamsList(list);
+    // }
+
+
+
     return (
         <div className="table-wrapper">
             <table className="fl-table" >
