@@ -46,6 +46,16 @@ const SignInPage4 = () => {
         })
     },[team1GoalsFor,team2GoalsFor])
 
+
+    // useEffect(() => {
+    //     axios.get("http://localhost:8989/get-lives").then((res) => {
+    //        setTeamsInLive(res.data);
+    //        //e.preventDefault();
+    //     });
+    //
+
+
+
     // useEffect(()=>{
     //         axios.get("http://localhost:8989/get-all-live-games").then(res =>{
     //            setTeamsPlaying(res.data);});
@@ -54,8 +64,8 @@ const SignInPage4 = () => {
     // const setTeamsPlaying=(liveGamesArray)=>{
     //     const list=[];
     //     liveGamesArray.map((game)=>{
-    //         list.push(game.team1);
-    //         list.push(game.team2);
+    //         list.push(game.setTeam1);
+    //         list.push(game.setTeam2);
     //     })
     //    setTeamsInLive(list);
     // }
@@ -128,11 +138,11 @@ const SignInPage4 = () => {
         setIsLive(false);
     }
 
-    const team1 = (event) => {
+    const setTeam1 = (event) => {
         setSelectedTeam1(event.target.value)
     }
 
-    const team2 = (event) => {
+    const setTeam2 = (event) => {
         setSelectedTeam2(event.target.value)
     }
     const onSaveButton = () =>{
@@ -188,7 +198,7 @@ const SignInPage4 = () => {
                       <h1> hello {username} </h1> <br/>
                       <h1> Please choose 2 teams: </h1><br/>
                         {/*<button onClick={onLogOutClick}>Log Out</button>*/}
-                        <select  id ="teams"  value={selectedTeam1} onChange={team1}>
+                        <select  id ="teams"  value={selectedTeam1} onChange={setTeam1}>
                             <option disabled={true} value={""}  >
                                 select your team
                             </option>
@@ -201,7 +211,7 @@ const SignInPage4 = () => {
                             })
                         }
                         </select>
-                        <select id ="teams" value={selectedTeam2} onChange={team2} >
+                        <select id ="teams" value={selectedTeam2} onChange={setTeam2} >
                             <option disabled={true} value={""}  >
                                 select second team
                             </option>

@@ -1,45 +1,50 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect,useState} from 'react';
+import axios from "axios";
 import './Table.css';
 
 
 const GeneralLeagueTable = (props) => {
-    const [teamsList,setTeamsList]=useState(props.list);
-  // let teamsList = ;
+
+let [updatedTeamsList,setUpdatedTeamsList]=useState([]);
 
 
-
-    // const updateList = () => {
-    //     let list = [];
-    //     teamsList.map((teamFromServer ) => {
-    //         const newTeam = {
-    //             name : teamFromServer.name ,
-    //             played : teamFromServer.gamesWon + teamFromServer.gamesLost + teamFromServer.gameDrawn ,
-    //             won : teamFromServer.gamesWon ,
-    //             drawn: teamFromServer.gameDrawn ,
-    //             lost : teamFromServer.gamesLost ,
-    //             goalsFor : teamFromServer.goalsFor ,
-    //             goalsAgainst : teamFromServer.goalAgainst,
-    //             goalsDrawn : teamFromServer.goalsFor - teamFromServer.goalAgainst,
-    //             points : teamFromServer.gamesWon * 3 + teamFromServer.gameDrawn
-    //         }
-    //         list.push(newTeam);
-    //     })
-    //     list=list.sort();
-    //
-    //     list = list.sort((a,b) => {
-    //         return (
-    //             b.goalsDrawn - a.goalsDrawn
-    //         )
-    //     });
-    //     list = list.sort((a,b) => {
-    //         return (
-    //             b.points - a.points
-    //         )
-    //     });
-    //     setTeamsList(list);
-    // }
+    useEffect(()=>{
+        updateList(props.list);
 
 
+    },[updatedTeamsList]);
+
+
+    const updateList = (allTeams) => {
+        let tempList = [];
+        allTeams.map((teamFromServer ) => {
+            const newTeam = {
+                name : teamFromServer.name ,
+                played : teamFromServer.gamesWon + teamFromServer.gamesLost + teamFromServer.gameDrawn ,
+                won : teamFromServer.gamesWon ,
+                drawn: teamFromServer.gameDrawn ,
+                lost : teamFromServer.gamesLost ,
+                goalsFor : teamFromServer.goalsFor ,
+                goalsAgainst : teamFromServer.goalAgainst,
+                goalsDrawn : teamFromServer.goalsFor - teamFromServer.goalAgainst,
+                points : teamFromServer.gamesWon * 3 + teamFromServer.gameDrawn
+            }
+            tempList.push(newTeam);
+        })
+        tempList=tempList.sort();
+
+        tempList = tempList.sort((a,b) => {
+            return (
+                b.goalsDrawn - a.goalsDrawn
+            )
+        });
+        tempList = tempList.sort((a,b) => {
+            return (
+                b.points - a.points
+            )
+        });
+        setUpdatedTeamsList(tempList);
+    }
 
     return (
         <div className="table-wrapper">
@@ -57,10 +62,10 @@ const GeneralLeagueTable = (props) => {
                     <th>Points</th>
                 </tr>
                 {
-                    teamsList.map((newTeam,index)=> {
+                    updatedTeamsList.map((newTeam,index)=> {
                         return (
                             <tr>
-                                <td>{index+1}</td>
+                                <td>{index + 1}</td>
                                 <td>{newTeam.name}</td>
                                 <td>{newTeam.played}</td>
                                 <td>{newTeam.won}</td>
@@ -77,6 +82,6 @@ const GeneralLeagueTable = (props) => {
             </table>
         </div>
     );
-};
+}
 
-export default GeneralLeagueTable ;
+export default GeneralLeagueTable;
