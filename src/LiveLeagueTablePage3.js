@@ -11,7 +11,6 @@ const LiveLeagueTablePage3 = () => {
     useEffect((e) => {
         axios.get("http://localhost:8989/get-lives").then((res) => {
             setUpdatedTeamsList(res.data);
-            //updateList
             e.preventDefault();})
         });
 

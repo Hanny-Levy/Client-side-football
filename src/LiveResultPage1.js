@@ -12,9 +12,6 @@ const LiveResultPage1 = () => {
             });
     } );
 
-
-
-
     const checkWinner = (goalsTeam1,goalsTeam2) => {
         let color="white";
         if (goalsTeam1===goalsTeam2){

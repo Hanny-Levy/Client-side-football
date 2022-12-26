@@ -6,7 +6,6 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Response from "./Response";
 
-
 const SignInPage4 = () => {
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
