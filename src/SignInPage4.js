@@ -1,4 +1,7 @@
 import React from 'react';
+import "./Table.css";
+import "./button.css";
+import "./App.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Response from "./Response";
@@ -19,12 +22,17 @@ const SignInPage4 = () => {
     const [responseByCodeError,setResponseByCodeError]=useState(0);
     const [teamsInLive,setTeamsInLive]=useState([]);
 
-
-
     let validPassword = password.length >= 6 ;
     let validUsername = username.includes('@') ;
     let validLogin = validUsername && validPassword;
     const [teams,setTeams]=useState([]);
+
+    useEffect(()=>{
+        axios.get("http://localhost:8989/get-teams-in-games").then((res) => {
+            setTeamsInLive(res.data);
+            //        //e.preventDefault();
+        })
+    })
 
     useEffect(()=>{
         axios.get("http://localhost:8989/getAllTeams").then(res =>{
@@ -46,40 +54,18 @@ const SignInPage4 = () => {
         })
     },[team1GoalsFor,team2GoalsFor])
 
+    const checkIfTeamIsPlaying=(team)=> {
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:8989/get-lives").then((res) => {
-    //        setTeamsInLive(res.data);
-    //        //e.preventDefault();
-    //     });
-    //
+        let playing = false;
+        for (let i = 0; i < teamsInLive.length; i++) {
+            if (team === teamsInLive[i].name) {
+                playing = true;
+                break;
+            }
 
-
-
-    // useEffect(()=>{
-    //         axios.get("http://localhost:8989/get-all-live-games").then(res =>{
-    //            setTeamsPlaying(res.data);});
-    // });
-
-    // const setTeamsPlaying=(liveGamesArray)=>{
-    //     const list=[];
-    //     liveGamesArray.map((game)=>{
-    //         list.push(game.setTeam1);
-    //         list.push(game.setTeam2);
-    //     })
-    //    setTeamsInLive(list);
-    // }
-
-    // let isTeamPlaying=(team)=>{
-    //     let live=false;
-    //     teamsInLive.map((currentTeam)=>{
-    //         if (currentTeam!==team){
-    //             live=true;
-    //         }
-    //         return live;
-    //         }
-    //     )
-    // }
+        }
+        return playing;
+    }
 
     const  onSignInClick = () =>{
         if (validLogin)
@@ -146,18 +132,29 @@ const SignInPage4 = () => {
         setSelectedTeam2(event.target.value)
     }
     const onSaveButton = () =>{
-        setIsLive(true);
+
+        if (!checkIfTeamIsPlaying(selectedTeam1) && !checkIfTeamIsPlaying(selectedTeam2)){
+            setIsLive(true);
+        }else {
+
+            setSelectedTeam1("")
+            setSelectedTeam2("");
+            alert("the already in game");
+        }
     }
 
         return (
-        <div >
+        <div>
             <br/><br/><br/><br/>
 
             {
-                !signIn ? <table>
+                !signIn ?
+                    <center className={"positionTable"}>
+
+                <table className={"table-wrapper"}>
                     <tr>
                         <th>
-                            <input placeholder={"Enter your username"} value={username} onChange={(event) => {
+                            <input className={"inputStyle"} placeholder={"Enter your username"} value={username} onChange={(event) => {
                                 setUsername(event.target.value)}}/>
                         </th>
                     </tr>
@@ -170,7 +167,7 @@ const SignInPage4 = () => {
 
                     <tr>
                         <th>
-                            <input placeholder={"Enter your password"} value={password} type={"password"} onChange={(event) => setPassword(event.target.value)}/>
+                            <input className={"inputStyle"} placeholder={"Enter your password"} value={password} type={"password"} onChange={(event) => setPassword(event.target.value)}/>
 
                         </th>
                     </tr>
@@ -182,7 +179,7 @@ const SignInPage4 = () => {
                         </tr>
                     <tr>
                         <th>
-                            <button onClick={onSignInClick} disabled={!validUsername || !validPassword}  >Sign In</button>
+                            <button onClick={onSignInClick} className={"button"} disabled={!validUsername || !validPassword}  >Sign In</button>
                         </th>
 
 
@@ -193,18 +190,22 @@ const SignInPage4 = () => {
                          }
                      </tr>
 
-                </table> :
-                    <table>
-                      <h1> hello {username} </h1> <br/>
-                      <h1> Please choose 2 teams: </h1><br/>
-                        {/*<button onClick={onLogOutClick}>Log Out</button>*/}
-                        <select  id ="teams"  value={selectedTeam1} onChange={setTeam1}>
+                </table>
+                    </center>
+                        :
+                    <div>
+                        <h1>hello {username}</h1>
+                        <h1> Please choose 2 teams: </h1>
+                    <table className={"selectTeamsTable"} >
+
+
+                        <select id ="teams"  value={selectedTeam1} onChange={setTeam1}>
                             <option disabled={true} value={""}  >
                                 select your team
                             </option>
                         {
                             teams.map(team =>{
-                                let isDisable = team.name===selectedTeam2
+                                let isDisable = team.name===selectedTeam2;
                                 return (
                                     <option value={team.name} disabled={isDisable}>{team.name}</option>
                                 )
@@ -217,13 +218,13 @@ const SignInPage4 = () => {
                             </option>
                                 {
                                 teams.map(team =>{
-                                    let isDisable = team.name===selectedTeam1
+                                    let isDisable = team.name===selectedTeam1 ;
                                     return (
                               <option value={team.name} disabled={isDisable}>{team.name} </option>)
                                 })
                             }
                         </select>
-                        <button onClick={onSaveButton} disabled={live}>save</button>
+                        <button onClick={onSaveButton} disabled={live || selectedTeam1==="" || selectedTeam2===""} className={"button"}>save</button>
 
                         {
                             live &&
@@ -241,8 +242,8 @@ const SignInPage4 = () => {
                                 }
                             </tr>
                                 <tr>
-                                    <td>{selectedTeam1}</td>
-                                    <td><input type={"number"} min={"0"} onChange={(event) => {
+                                    <td style={{height:"50px"}}>{selectedTeam1}</td>
+                                    <td><input className={"inputStyle"} type={"number"} min={"0"} onChange={(event) => {
                                         setTeam1GoalsFor(event.target.value);
                                         setTeam2GoalsAgainst(event.target.value)}} value={team1GoalsFor}/></td>
                                     <td>{team1GoalsAgainst}</td>
@@ -251,7 +252,7 @@ const SignInPage4 = () => {
                                 </tr>
                                 <tr>
                                     <td>{selectedTeam2}</td>
-                                    <td><input type={"number"}  min={"0"} onChange={(event) => {
+                                    <td><input className={"inputStyle"} type={"number"}  min={"0"} onChange={(event) => {
                                         setTeam2GoalsFor(event.target.value);
                                         setTeam1GoalsAgainst(event.target.value)
                                     }} value={team2GoalsFor}/></td>
@@ -260,14 +261,17 @@ const SignInPage4 = () => {
                                 </tr>
 
                                 <tr>
-                                  <td><button onClick={endGameButton}> End game </button></td>
-                                   <td><button onClick={clear}> Clear </button></td>
+                                  <td><button onClick={endGameButton} className={"button"}> End game </button></td>
+                                   <td><button onClick={clear} className={"button"}> Clear </button></td>
                                 </tr>
                            </table>
                             </div>
+
                         }
                     </table>
+                    </div>
             }
+
         </div>
     );
 };

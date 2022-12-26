@@ -46,7 +46,7 @@ let [updatedTeamsList,setUpdatedTeamsList]=useState([]);
     }
 
     return (
-        <div className="table-wrapper">
+        <div>
             <table className="fl-table" >
                 <tr>
                     <th>Position</th>

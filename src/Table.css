@@ -19,8 +19,20 @@ h2{
 /* Table Styles */
 
 .table-wrapper{
-    margin: 10px 70px 70px;
     box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    float: left;
+    margin: 80px auto 0px 30%;
+}
+.selectTeamsTable{
+
+    float: left;
+    margin: -35px auto 0px 10%;
+    height:50px;
+}
+.inputStyle{
+    font-size: 20px;
+    text-align:center;
+
 
 }
 
@@ -69,6 +81,9 @@ h2{
         display: block;
         width: 100%;
     }
+    .signInTable{
+        align-content: center;
+    }
     .table-wrapper:before{
         content: "Scroll horizontally >";
         display: block;
@@ -104,6 +119,7 @@ h2{
     }
     .fl-table thead th {
         text-align: left;
+
         border-bottom: 1px solid #f7f7f9;
     }
     .fl-table tbody tr {
@@ -124,6 +140,11 @@ h2{
     }
     .fl-table tbody td {
         display: block;
+
         text-align: center;
+    }
+
+    .positionTable{
+      padding-top: 50px;
     }
 }

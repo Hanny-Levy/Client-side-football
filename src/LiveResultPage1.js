@@ -2,9 +2,8 @@ import React, {useEffect,useState} from 'react';
 import axios from "axios";
 import './Table.css';
 
-const LiveResultPage1 = (props) => {
+const LiveResultPage1 = () => {
     const [liveGames,setLiveGames]=useState([]);
-    const [changeInGame,setChangeInGame ]=useState(false);
 
     useEffect((e)=>{
         axios.get("http://localhost:8989/get-all-live-games").then((res)=>{
@@ -30,7 +29,7 @@ const LiveResultPage1 = (props) => {
 
     return (
 
-        <div className="table-wrapper">
+        <div>
 
             <table class="fl-table">
                 <tr>

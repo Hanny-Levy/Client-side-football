@@ -54,7 +54,7 @@ body {
 }
 
 body {
-  margin: 0;
+
   background-color: #292929;
   overflow: hidden;
 }
@@ -185,6 +185,7 @@ input {
   height: 50px;
   font-size: 20px;
   border-radius: 10px;
+
 }
 
 button{
