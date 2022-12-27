@@ -38,13 +38,23 @@
 }
 
 .active-menu{
-  color:red;
+  color:#4169E1;
   font-size: large;
+
+
 }
 
 
-.non-active-menu{
+.non-active-menu,.active-menu{
   text-decoration:none;
+  font-family: 'Droid serif', serif;
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+  line-height: 44px;
+  margin: 0 0 12px;
+
+
 }
 html,
 body {
@@ -198,12 +208,21 @@ button{
 
 }
 h1 {
-  color: black;
+  position: relative;
+  font-size:45px;
+  left:30px;
+  color:white;
+  line-height: 48px;
+  font-family: 'Trocchi', serif;
+  text-shadow: 2px 4px 3px rgba(0,1,0,0.5);
+
+
 }
 .divErrorCode{
   font-weight: bold;
   font-size: 20px;
   color: red;
+
 }
 
 th, td {
@@ -215,3 +234,4 @@ body {
   background-image: url("https://www.thenation.com/wp-content/uploads/2018/04/soccer-ball-ss-img.jpg?scale=896&compress=80");
   background-size: 1600px;
 }
+

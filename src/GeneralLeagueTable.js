@@ -48,6 +48,9 @@ let [updatedTeamsList,setUpdatedTeamsList]=useState([]);
     return (
         <div>
             <table className="fl-table" >
+                <thead>
+
+
                 <tr>
                     <th>Position</th>
                     <th>Name</th>
@@ -60,6 +63,7 @@ let [updatedTeamsList,setUpdatedTeamsList]=useState([]);
                     <th>Goals Drawn</th>
                     <th>Points</th>
                 </tr>
+                </thead>
                 {
                     updatedTeamsList.map((newTeam,index)=> {
                         return (
@@ -75,6 +79,7 @@ let [updatedTeamsList,setUpdatedTeamsList]=useState([]);
                                 <td>{newTeam.goalsDrawn}</td>
                                 <td>{newTeam.points}</td>
                             </tr>
+
                         );
                     })
                 }

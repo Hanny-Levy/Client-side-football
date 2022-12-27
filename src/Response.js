@@ -7,11 +7,11 @@ const Response = (props) => {
         <div>
             { (props.errorCode===1) ?
                 <div className={"divErrorCode"}>
-                    error code {props.errorCode}: username isn't correct
+                    username isn't correct
                 </div>
                 :
                 <div className={"divErrorCode"}>
-                   error code {props.errorCode}: password isn't correct
+                   password isn't correct
                 </div>
 
             }

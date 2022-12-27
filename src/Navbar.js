@@ -12,7 +12,7 @@ const Navbar = () => {
     return (
         <div>
             <BrowserRouter>
-                <nav class={"navMenu"}>
+                <nav className={"navMenu"}>
 
                     {
                         links.map((link)=>{

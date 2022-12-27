@@ -13,13 +13,14 @@ const LiveResultPage1 = () => {
     } );
 
     const checkWinner = (goalsTeam1,goalsTeam2) => {
-        let color="white";
+        let color;
         if (goalsTeam1===goalsTeam2){
-            color="yellow";
+
+            color="#FFFF00";
         }else if (goalsTeam1>goalsTeam2){
-            color="green";
+            color="#32CD32";
         }else {
-            color="red"
+            color="#FF6347"
         }
         return color ;
     }
@@ -28,8 +29,8 @@ const LiveResultPage1 = () => {
 
         <div>
 
-            <table class="fl-table">
-                <tr>
+            <table className={"fl-table"} >
+                <tr id={"row"}>
                     <th>
                        Team Name 1
                     </th>
