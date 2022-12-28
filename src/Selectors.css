@@ -1,9 +1,9 @@
-
 :root {
     --select-border: #777;
     --select-focus: #008000;
     --select-arrow: var(--select-border);
 }
+
 .select {
     width: 45%;
     min-width: 20ch;
@@ -25,14 +25,3 @@
     background-color: var(--select-arrow);
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
 }
-
-option :hover{
-    background: black;
-    font-weight:bold;
-}
-
-
-
-
-
-

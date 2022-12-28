@@ -40,10 +40,7 @@
 .active-menu{
   color:#4169E1;
   font-size: large;
-
-
 }
-
 
 .non-active-menu,.active-menu{
   text-decoration:none;
@@ -53,18 +50,17 @@
   font-style: italic;
   line-height: 44px;
   margin: 0 0 12px;
-
-
 }
+
 html,
 body {
   height: 100%;
 }
 
 body {
-
-  background-color: #292929;
   overflow: hidden;
+  background-image: url("https://www.thenation.com/wp-content/uploads/2018/04/soccer-ball-ss-img.jpg?scale=896&compress=80");
+  background-size: 1600px;
 }
 
 nav {
@@ -115,46 +111,6 @@ nav a:after {
   height: 4px;
 }
 
-nav a:nth-child(1):before {
-  background-color: yellow;
-}
-
-nav a:nth-child(1):after {
-  background-color: red;
-}
-
-nav a:nth-child(2):before {
-  background-color: #00e2ff;
-}
-
-nav a:nth-child(2):after {
-  background-color: #89ff00;
-}
-
-nav a:nth-child(3):before {
-  background-color: purple;
-}
-
-nav a:nth-child(3):after {
-  background-color: palevioletred;
-}
-
-nav a:nth-child(4):before {
-  background-color: blue;
-}
-
-nav a:nth-child(4):after {
-  background-color: greenyellow;
-}
-
-nav a:nth-child(5):before {
-  background-color: gold;
-}
-
-nav a:nth-child(5):after {
-  background-color: darkcyan;
-}
-
 #indicator {
   position: absolute;
   left: 5%;
@@ -170,51 +126,32 @@ nav a:hover {
   color: #fff;
 }
 
-nav a:hover:before,
-nav a:hover:after {
-  transform: scale(1);
-}
-
 nav a:nth-child(1):hover ~ #indicator {
   left: 7%;
   background: linear-gradient(130deg, yellow, red);
 }
 
 nav a:nth-child(2):hover ~ #indicator {
-  left: 34%;
+  left: 28%;
   background: linear-gradient(130deg, #00e2ff, #89ff00);
 }
 
 nav a:nth-child(3):hover ~ #indicator {
-  left: 63%;
-  background: linear-gradient(130deg, purple, palevioletred);
+  left: 52%;
+  background: linear-gradient(130deg, #e02a65, rgb(248, 114, 114));
 }
+
 nav a:nth-child(4):hover ~ #indicator {
-  left: 85%;
-  background: linear-gradient(130deg, blue, greenyellow);
+  left: 74%;
+  background: linear-gradient(200deg, yellow, blue);
 }
 
-input {
-  width: 200px;
-  height: 50px;
-  font-size: 20px;
-  border-radius: 10px;
-
+nav a:nth-child(5):hover ~ #indicator {
+  left: 90%;
+  background: linear-gradient(130deg, #00ffbb, #bd0f8b);
 }
 
-button{
-  width: 100px;
-  height: 50px;
-  font-size: 20px;
-  border-radius: 10px;
-}
-
-.warning {
-  font-size: 20px ;
-  color: darkred;
-  font-weight: bold;
-
-}
+/*header sigIn*/
 h1 {
   position: relative;
   font-size:45px;
@@ -223,14 +160,12 @@ h1 {
   line-height: 48px;
   font-family: 'Trocchi', serif;
   text-shadow: 2px 4px 3px rgba(0,1,0,0.5);
-
-
 }
+
 .divErrorCode{
   font-weight: bold;
   font-size: 20px;
   color: red;
-
 }
 
 th, td {
@@ -238,10 +173,6 @@ th, td {
   text-align: left;
 }
 
-body {
-  background-image: url("https://www.thenation.com/wp-content/uploads/2018/04/soccer-ball-ss-img.jpg?scale=896&compress=80");
-  background-size: 1600px;
-}
 h3 {
   color: #111;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -250,14 +181,5 @@ h3 {
   line-height: 0.2;
   text-align: left;
   margin: 150px;
-  padding: 10px 15px 8px;
   text-shadow: 2px 7px 3px rgb(255, 255, 255);
 }
-
-
-
-
-
-
-
-

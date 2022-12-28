@@ -1,15 +1,18 @@
+/*username and password*/
 .inputStyle{
     font-size: 20px;
     text-align:center;
-
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
 }
 
+
+/*add goal to table*/
 .goalsInput{
     font-size: 20px;
     text-align:center;
     width: 80px;
     background: none;
-
-
-
 }
+
