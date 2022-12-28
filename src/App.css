@@ -147,6 +147,14 @@ nav a:nth-child(4):after {
   background-color: greenyellow;
 }
 
+nav a:nth-child(5):before {
+  background-color: gold;
+}
+
+nav a:nth-child(5):after {
+  background-color: darkcyan;
+}
+
 #indicator {
   position: absolute;
   left: 5%;
@@ -234,4 +242,22 @@ body {
   background-image: url("https://www.thenation.com/wp-content/uploads/2018/04/soccer-ball-ss-img.jpg?scale=896&compress=80");
   background-size: 1600px;
 }
+h3 {
+  color: #111;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 100px; font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 0.2;
+  text-align: left;
+  margin: 150px;
+  padding: 10px 15px 8px;
+  text-shadow: 2px 7px 3px rgb(255, 255, 255);
+}
+
+
+
+
+
+
+
 

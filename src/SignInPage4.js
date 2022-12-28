@@ -16,7 +16,7 @@ const SignInPage4 = () => {
     const [selectedTeam2, setSelectedTeam2] = useState("");
     const [signIn,setSignIn]=useState(false);
     const [live,setIsLive]=useState(false);
-    const tableHeaders = ["Name" , "Goals For" , "Goals Against" , "Live"];
+    const tableHeaders = ["Name" , "Goals For" , "Goals Against"];
     const [team1GoalsFor, setTeam1GoalsFor]=useState(0)
     const [team1GoalsAgainst , setTeam1GoalsAgainst]=useState(0)
     const [team2GoalsAgainst , setTeam2GoalsAgainst]=useState(0)
@@ -133,6 +133,7 @@ const SignInPage4 = () => {
             }
         }else {
             setIsLive(true);
+            alert("Starting a live game ")
         }
     }
     const checkIfInputValid=(number)=>{
@@ -251,14 +252,14 @@ const SignInPage4 = () => {
                                     <td style={{height:"50px"}}>{selectedTeam1}</td>
                                     <td><input className={"goalsInput"} type={"number"} min={"0"} onChange={setGoalsTeam1} value={team1GoalsFor}/></td>
                                     <td>{team1GoalsAgainst}</td>
-                                    <td>V</td>
+
 
                                 </tr>
                                 <tr>
                                     <td>{selectedTeam2}</td>
                                     <td><input className={"goalsInput"} type={"number"}   min={"0"} onChange={setGoalsTeam2} value={team2GoalsFor}/></td>
                                     <td >{team2GoalsAgainst}</td>
-                                    <td>V</td>
+
                                 </tr>
 
                            </table>

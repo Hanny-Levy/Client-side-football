@@ -5,21 +5,12 @@ const Response = (props) => {
 
     return(
         <div>
-            { (props.errorCode===1) ?
+            { (props.errorCode===1 || props.errorCode===2 ) &&
                 <div className={"divErrorCode"}>
-                    username isn't correct
+                    username or password isn't correct
                 </div>
-                :
-                <div className={"divErrorCode"}>
-                   password isn't correct
-                </div>
-
             }
         </div>
-
-
     )
-
-
 }
 export default Response;
