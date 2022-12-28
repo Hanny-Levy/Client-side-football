@@ -8,9 +8,8 @@ const LeagueTablePage2 = () => {
     const [allTeamsFromServer, setAllTeamsFromServer] = useState([]);
 
     useEffect((e) => {
-        axios.get("http://localhost:8989/getAllTeams").then((res) => {
+        axios.get("http://localhost:8989/get-all-teams").then((res) => {
             setAllTeamsFromServer(res.data)
-            //updateList();
             e.preventDefault();
         })
     },[]);

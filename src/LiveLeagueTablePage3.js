@@ -3,13 +3,12 @@ import axios from "axios";
 import './Table.css';
 import GeneralLeagueTable from "./GeneralLeagueTable";
 
-
 const LiveLeagueTablePage3 = () => {
 
     let [updatedTeamsList, setUpdatedTeamsList] = useState([]);
 
     useEffect((e) => {
-        axios.get("http://localhost:8989/get-lives").then((res) => {
+        axios.get("http://localhost:8989/get-all-teams-in-lives-results").then((res) => {
             setUpdatedTeamsList(res.data);
             e.preventDefault();})
         });
@@ -20,5 +19,4 @@ const LiveLeagueTablePage3 = () => {
         </div>
     );
 }
-
 export default LiveLeagueTablePage3;

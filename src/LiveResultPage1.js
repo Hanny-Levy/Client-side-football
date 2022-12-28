@@ -26,9 +26,7 @@ const LiveResultPage1 = () => {
     }
 
     return (
-
         <div>
-
             <table className={"fl-table"} >
                 <tr id={"row"}>
                     <th>
@@ -43,15 +41,12 @@ const LiveResultPage1 = () => {
                     <th>
                         Team Name 2
                     </th>
-
                 </tr>
                 {
                     liveGames.map((game)=>{
                         const team1Goals = game.team1GoalsFor-game.team1Against ;
                         const team2Goals = game.team2GoalsFor-game.team2Against ;
-
                         return(
-
                                 <tr>
                                     <td style={{background : checkWinner(team1Goals,team2Goals)}} >
                                         {game.team1.name}
@@ -71,5 +66,4 @@ const LiveResultPage1 = () => {
         </div>
     );
 };
-
 export default LiveResultPage1;
