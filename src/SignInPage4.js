@@ -47,8 +47,6 @@ const SignInPage4 = () => {
                 team2GoalsFor : team2GoalsFor
             }
         })
-            .then(res =>{
-        })
     },[team1GoalsFor,team2GoalsFor])
 
     const checkIfTeamIsPlaying=(team)=> {
@@ -86,7 +84,7 @@ const SignInPage4 = () => {
                     team2GoalsFor: team2GoalsFor,
                 }
         }).then((res) =>{
-            if ( res.data===true)
+            if ( res.data.success===true)
             alert("update successful")
             initGame();
         });
@@ -101,7 +99,7 @@ const SignInPage4 = () => {
                 team2GoalsFor: team2GoalsFor,
             }
         }).then((res) =>{
-            if ( res.data===true)
+            if ( res.data.success===true)
                 alert("delete successful")
         });
         initGame();
